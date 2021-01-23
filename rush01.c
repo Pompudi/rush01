@@ -10,9 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putchar(char c);
+#include <unistd.h>
 
-void write_matrica(int col, int row , char **matrica)
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void write_matrica(int col, int row , char matrica[col][row])
 {
 	int i_col;
 	int i_row;
@@ -25,17 +30,9 @@ void write_matrica(int col, int row , char **matrica)
 		{
 			ft_putchar(matrica[col][row]);
 		}
-	}ß
+	}
 }
 
-void	is_corner(int x, int y, char **matrica)
-{
-	if ((x == 0) && (y == 0))
-	{
-		matrica[x][y] = '/';
-	}
-	else if ((x == 0) && (y))
-}
 void	rush(int y, int x)
 {
 	int ix;
@@ -43,11 +40,35 @@ void	rush(int y, int x)
 
 	ix = 0;
 	char matrica[x][y];
-	while (ix <= x )
+	matrica[0][0] = '/';
+	if (( x != 1) && ( y != 1))
 	{
-		iy = 0;
-		while (iy <= y)
+		matrica[x][y] = '/';
+		matrica[x][0] = '\\';
+		matrica[0][y] = '\\';
+	}
+	if (x == 1)
+		matrica[x][y] = '\\';
+	if (y == 1)
+		matrica[x][y] = '\\';
+	while (ix != x){
+		while (iy != y)
 		{
-			is_a
+			if ((ix == 0) || (ix == (x-1)))
+				matrica[ix][iy] = '*';
+			else if ((iy == 0) || (iy == (y-1)))
+				matrica[ix][iy] = '*';
+			else 
+				matrica[ix][iy] = ' ';
+			ix++;
+			iy++;
+		}
+		write_matrica(x, y, matrica);
+	}
+}
+int		main(void)
+{
+	rush(5, 3);
+	return (0);
+}
 
-	write_matrica(x, y, matrica);
