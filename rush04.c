@@ -10,65 +10,66 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+void ft_putchar(char c);
 
-void	ft_putchar(char c)
+void write_rectangle(int ix, int iy, int x, int y)
 {
-	write(1, &c, 1);
-}
-
-void write_matrica(int col, int row , char matrica[col][row])
-{
-	int i_col;
-	int i_row;
-
-	i_col = 0;
-	i_row = 0;
-	while(i_col <= col)
+	if (ix == 0)
 	{
-		while (i_row <= row)
+		if (iy == 0)
 		{
-			ft_putchar(matrica[col][row]);
+			ft_putchar('A');
+		}
+		else if (iy == y - 1)
+		{
+			ft_putchar('C');
+		}
+		else
+		{
+			ft_putchar('B');
 		}
 	}
+	else if ( ix == x - 1)
+	{
+		if ( iy == 0)
+		{
+			ft_putchar('C');
+		}
+		else if ( iy == y - 1)
+		{
+			ft_putchar('A');
+		}
+		else
+		{
+			ft_putchar('B');
+		}
+	}
+	else if ((iy == 0) || (iy == y - 1))
+	{
+		ft_putchar('B');
+	}
+	else
+	{
+		ft_putchar(' ');
+	}
+	
 }
 
-void	rush(int y, int x)
+void rush(int y, int x)
 {
 	int ix;
 	int iy;
 
-	ix = 0;
-	char matrica[x][y];
-	matrica[0][0] = '/';
-	if (( x != 1) && ( y != 1))
+	ix =0;
+	while (ix < x)
 	{
-		matrica[x][y] = '/';
-		matrica[x][0] = '\\';
-		matrica[0][y] = '\\';
-	}
-	if (x == 1)
-		matrica[x][y] = '\\';
-	if (y == 1)
-		matrica[x][y] = '\\';
-	while (ix != x){
-		while (iy != y)
+		iy = 0;
+		while (iy < y)
 		{
-			if ((ix == 0) || (ix == (x-1)))
-				matrica[ix][iy] = '*';
-			else if ((iy == 0) || (iy == (y-1)))
-				matrica[ix][iy] = '*';
-			else 
-				matrica[ix][iy] = ' ';
-			ix++;
+			write_rectangle(ix, iy, x, y);
 			iy++;
 		}
-		write_matrica(x, y, matrica);
+		ft_putchar('\n');
+		ix++;
 	}
 }
-int		main(void)
-{
-	rush(5, 3);
-	return (0);
-}
-
